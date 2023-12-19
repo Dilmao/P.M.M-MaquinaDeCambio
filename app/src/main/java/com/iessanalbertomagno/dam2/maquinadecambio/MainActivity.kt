@@ -121,18 +121,18 @@ fun DarCambio(mainViewModel: MainViewModel) {
 
         // euros
         CrearLineaImagenes(listOf(
-            Triple(R.drawable._10000, "Billete de 100 euros", 60.dp),
-            Triple(R.drawable._5000, "Billete de 50 euros", 60.dp),
-            Triple(R.drawable._2000, "Billete de 20 euros", 60.dp),
-            Triple(R.drawable._1000, "Billete de 10 euros", 60.dp),
-            Triple(R.drawable._500, "Billete de 5 euros", 60.dp),
+            Triple(R.drawable._100, "Billete de 100 euros", 60.dp),
+            Triple(R.drawable._50, "Billete de 50 euros", 60.dp),
+            Triple(R.drawable._20, "Billete de 20 euros", 60.dp),
+            Triple(R.drawable._10, "Billete de 10 euros", 60.dp),
+            Triple(R.drawable._5, "Billete de 5 euros", 60.dp),
         ))
         Spacer(modifier = Modifier.height(20.dp))
 
         // centimos (1ª linea)
         CrearLineaImagenes(listOf(
-            Triple(R.drawable._200, "Moneda de 2 euros", 50.dp),
-            Triple(R.drawable._100, "Moneda de 1 euro", 50.dp),
+            Triple(R.drawable._2, "Moneda de 2 euros", 50.dp),
+            Triple(R.drawable._1, "Moneda de 1 euro", 50.dp),
             Triple(R.drawable.__50, "Moneda de 50 cents", 50.dp),
             Triple(R.drawable.__20, "Moneda de 20 cents", 50.dp),
         ))
