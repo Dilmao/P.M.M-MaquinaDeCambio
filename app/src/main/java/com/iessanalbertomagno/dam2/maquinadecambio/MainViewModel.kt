@@ -25,13 +25,11 @@ class MainViewModel: ViewModel() {
         for (dinero in listaDinero) {
             // Se resetea la cantidad
             dinero.cantidad = 0
-            var nuevaCantidad: Double = _uiState.value.cambio / dinero.valor
-            println("Cambio ${dinero.valor} antes: ${dinero.cantidad}")
+            var nuevaCantidad: Double = cambio / dinero.valor
 
-            if (nuevaCantidad > 0) {
+            if (nuevaCantidad > 0 && cambio > 0) {
                 dinero.cantidad = nuevaCantidad.toInt()
             }
-            println("Cambio ${dinero.valor} despues: ${dinero.cantidad}")
             cambio -= dinero.cantidad * dinero.valor
         }
 

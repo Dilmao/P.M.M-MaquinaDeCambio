@@ -101,13 +101,7 @@ fun DarCambio(mainViewModel: MainViewModel) {
                 mainViewModel.onChanged(importeStr, pagadoStr)
                 mainViewModel.onGiveChange(billetesUi.pagado, billetesUi.importe, listaCompleta)
 
-                if (billetesUi.cambio >= 0) {
-                    // TODO para ver por que hay que dar al botón 3 veces:
-                    //  mensaje = "Cambio: ${billetesUi.pagado} - ${billetesUi.importe} = ${billetesUi.cambio}€"
-                    //  (solucion fea: for(i = 0; i <= 3; i++)) {mensaje...}
-                    //  igualmente la variable mensaje no se deberia de usar al final
-                    mensaje = "${billetesUi.cambio}€"
-                } else {
+                if (billetesUi.cambio < 0) {
                     mensaje = "Cantidad pagada insuficiente"
                 }
             } catch (e: NumberFormatException) {
