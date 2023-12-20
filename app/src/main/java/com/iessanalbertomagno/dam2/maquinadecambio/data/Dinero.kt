@@ -6,5 +6,6 @@ data class Dinero(
     var idImagen : Int,
     var descripcion: String,
     var tamanno: Dp,
+    var valor: Int,
     var cantidad: Int
     )

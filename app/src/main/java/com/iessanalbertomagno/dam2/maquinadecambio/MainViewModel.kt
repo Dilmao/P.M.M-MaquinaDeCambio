@@ -23,5 +23,6 @@ class MainViewModel: ViewModel() {
         _uiState.update {
             currentState -> currentState.copy(cambio = change)
         }
+
     }
 }
