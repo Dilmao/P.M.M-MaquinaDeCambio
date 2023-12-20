@@ -43,6 +43,11 @@ import com.iessanalbertomagno.dam2.maquinadecambio.data.listaMonedas2
 import com.iessanalbertomagno.dam2.maquinadecambio.ui.theme.MaquinaDeCambioTheme
 
 class MainActivity : ComponentActivity() {
+    /*TODO
+    *  Problemas:
+    *   - Hay que pulsar 3 veces el boton
+    *   - La introducción de valores funciona raro
+    * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
