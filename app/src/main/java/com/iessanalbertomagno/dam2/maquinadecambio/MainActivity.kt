@@ -33,9 +33,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.iessanalbertomagno.dam2.maquinadecambio.data.Dinero
+import com.iessanalbertomagno.dam2.maquinadecambio.data.listaBilletes
+import com.iessanalbertomagno.dam2.maquinadecambio.data.listaMonedas1
+import com.iessanalbertomagno.dam2.maquinadecambio.data.listaMonedas2
 import com.iessanalbertomagno.dam2.maquinadecambio.ui.theme.MaquinaDeCambioTheme
 
 class MainActivity : ComponentActivity() {
@@ -120,31 +123,15 @@ fun DarCambio(mainViewModel: MainViewModel) {
 
 
         // euros
-        CrearLineaImagenes(listOf(
-            Triple(R.drawable._100, "Billete de 100 euros", 60.dp),
-            Triple(R.drawable._50, "Billete de 50 euros", 60.dp),
-            Triple(R.drawable._20, "Billete de 20 euros", 60.dp),
-            Triple(R.drawable._10, "Billete de 10 euros", 60.dp),
-            Triple(R.drawable._5, "Billete de 5 euros", 60.dp),
-        ))
+        CrearLineaImagenes(listaBilletes)
         Spacer(modifier = Modifier.height(20.dp))
 
         // centimos (1ª linea)
-        CrearLineaImagenes(listOf(
-            Triple(R.drawable._2, "Moneda de 2 euros", 50.dp),
-            Triple(R.drawable._1, "Moneda de 1 euro", 50.dp),
-            Triple(R.drawable.__50, "Moneda de 50 cents", 50.dp),
-            Triple(R.drawable.__20, "Moneda de 20 cents", 50.dp),
-        ))
+        CrearLineaImagenes(listaMonedas1)
         Spacer(modifier = Modifier.height(20.dp))
 
         // centimos (2ª linea)
-        CrearLineaImagenes(images = listOf(
-            Triple(R.drawable.__10, "Moneda de 10 cents", 50.dp),
-            Triple(R.drawable.__5, "Moneda de 5 cents", 50.dp),
-            Triple(R.drawable.__2, "Moneda de 2 cents", 50.dp),
-            Triple(R.drawable.__1, "Moneda de 1 cent", 50.dp),
-        ))
+        CrearLineaImagenes(listaMonedas2)
         Spacer(modifier = Modifier.height(20.dp))
 
         // Cambio TODO (esto no es necesario)
@@ -154,22 +141,22 @@ fun DarCambio(mainViewModel: MainViewModel) {
 
 
 @Composable
-fun CrearLineaImagenes(images: List<Triple<Int, String, Dp>>) {
+fun CrearLineaImagenes(listaDinero: List<Dinero>) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
-        images.forEach{ (resourceId, description, tamanno) ->
+        for (dinero in listaDinero) {
             Spacer(modifier = Modifier.width(10.dp))
             Column (horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
-                    painter = painterResource(id = resourceId),
-                    contentDescription = description,
-                    modifier = Modifier.size(tamanno)
+                    painter = painterResource(id = dinero.idImagen),
+                    contentDescription = dinero.descripcion,
+                    modifier = Modifier.size(dinero.tamanno)
                 )
                 Spacer(modifier = Modifier.height(5.dp))
-                Text(text = "0")
+                Text(text = dinero.cantidad.toString())
             }
         }
     }
