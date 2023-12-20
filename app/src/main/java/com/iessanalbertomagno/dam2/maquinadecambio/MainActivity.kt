@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iessanalbertomagno.dam2.maquinadecambio.data.Dinero
 import com.iessanalbertomagno.dam2.maquinadecambio.data.listaBilletes
+import com.iessanalbertomagno.dam2.maquinadecambio.data.listaCompleta
 import com.iessanalbertomagno.dam2.maquinadecambio.data.listaMonedas1
 import com.iessanalbertomagno.dam2.maquinadecambio.data.listaMonedas2
 import com.iessanalbertomagno.dam2.maquinadecambio.ui.theme.MaquinaDeCambioTheme
@@ -98,7 +99,7 @@ fun DarCambio(mainViewModel: MainViewModel) {
         Button(onClick = {
             try {
                 mainViewModel.onChanged(importeStr, pagadoStr)
-                mainViewModel.onGiveChange(billetesUi.pagado, billetesUi.importe)
+                mainViewModel.onGiveChange(billetesUi.pagado, billetesUi.importe, listaCompleta)
 
                 if (billetesUi.cambio >= 0) {
                     // TODO para ver por que hay que dar al botón 3 veces:
