@@ -1,6 +1,7 @@
 package com.iessanalbertomagno.dam2.maquinadecambio
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -43,17 +44,11 @@ import com.iessanalbertomagno.dam2.maquinadecambio.data.listaMonedas2
 import com.iessanalbertomagno.dam2.maquinadecambio.ui.theme.MaquinaDeCambioTheme
 
 class MainActivity : ComponentActivity() {
-    /*TODO
-    *  Problemas:
-    *   - Hay que pulsar 3 veces el boton
-    *   - La introducción de valores funciona raro
-    * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaquinaDeCambioTheme {
                 val mainViewModel: MainViewModel = viewModel()
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -81,6 +76,7 @@ fun DarCambio(mainViewModel: MainViewModel) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Pedida de datos al usuario
         Row {
             OutlinedTextField(
                 value = importeStr,
@@ -103,13 +99,20 @@ fun DarCambio(mainViewModel: MainViewModel) {
 
         Button(onClick = {
             try {
+                // Se modifican las variables de estado 'importe' y 'pagado'
                 mainViewModel.onChanged(importeStr, pagadoStr)
-                mainViewModel.onGiveChange(billetesUi.pagado, billetesUi.importe, listaCompleta)
 
-                if (billetesUi.cambio < 0) {
+                // Se modifica el cambio y la cantidad de billetes a devolver
+                mainViewModel.onGiveChange(billetesUi, listaCompleta)
+
+                // Da un mensaje en función de si 'pagado' es mayor o menor a 'importe'
+                if (billetesUi.cambio >= 0) {
+                    mensaje = "Su cambio es de ${billetesUi.cambio}"
+                } else {
                     mensaje = "Cantidad pagada insuficiente"
                 }
             } catch (e: NumberFormatException) {
+                // Si los valores introducidos no son numeros, se mostrara un mensaje de error
                 Toast.makeText(
                     context,
                     "Los valores introducidos no son validos",
@@ -122,19 +125,19 @@ fun DarCambio(mainViewModel: MainViewModel) {
         Spacer(modifier = Modifier.height(20.dp))
 
 
-        // euros
+        // Euros
         CrearLineaImagenes(listaBilletes)
         Spacer(modifier = Modifier.height(20.dp))
 
-        // centimos (1ª linea)
+        // Centimos (1ª linea)
         CrearLineaImagenes(listaMonedas1)
         Spacer(modifier = Modifier.height(20.dp))
 
-        // centimos (2ª linea)
+        // Centimos (2ª linea)
         CrearLineaImagenes(listaMonedas2)
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Cambio TODO (esto no es necesario)
+        // Se imprime el cambio por pantalla/error por pago insuficiente
         Text(text = mensaje)
     }
 }
@@ -147,6 +150,7 @@ fun CrearLineaImagenes(listaDinero: List<Dinero>) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
+        // Por cada billete/moneda en la lista, se hace una columna con la imagen y la cantidad de estos
         for (dinero in listaDinero) {
             Spacer(modifier = Modifier.width(10.dp))
             Column (horizontalAlignment = Alignment.CenterHorizontally) {

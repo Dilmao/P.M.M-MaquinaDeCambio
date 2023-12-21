@@ -19,9 +19,17 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun onGiveChange(pagado: Double, importe: Double, listaDinero: List<Dinero>) {
-        var cambio: Double = ((pagado - importe) / 100)
+    fun onGiveChange(billetesUi: BilletesUi, listaDinero: List<Dinero>) {
+        // Se da un valor a cambio (asegurandose de que el resultado solo tenga dos decicmales)
+        var cambio = (billetesUi.pagado - billetesUi.importe).toInt().toDouble()
+        cambio /= 100
 
+        // Se cambia el cambio en State
+        _uiState.update {
+                currentState -> currentState.copy(cambio = cambio)
+        }
+
+        // Se modifica la cantidad de billetes necesarios para dar el cambio
         for (dinero in listaDinero) {
             // Se resetea la cantidad
             dinero.cantidad = 0
@@ -31,10 +39,6 @@ class MainViewModel: ViewModel() {
                 dinero.cantidad = nuevaCantidad.toInt()
             }
             cambio -= dinero.cantidad * dinero.valor
-        }
-
-        _uiState.update {
-                currentState -> currentState.copy(cambio = cambio)
         }
     }
 }

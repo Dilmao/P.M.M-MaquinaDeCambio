@@ -4,7 +4,8 @@ import androidx.compose.ui.unit.dp
 import com.iessanalbertomagno.dam2.maquinadecambio.R
 
 
-// declaracion de los billetes/monedas
+// Declaracion de los billetes/monedas
+//  (euros: '_ + cantidad', centimos: '__ + cantidad')
 val Billete100Euros : Dinero = Dinero(
     idImagen = R.drawable._100,
     descripcion = "Billete de 100 euros",
@@ -97,7 +98,7 @@ val Moneda1Centimo : Dinero = Dinero(
     cantidad = 0
 )
 
-// creacion de las listas
+// Creacion de las listas
 var listaCompleta : List<Dinero> = listOf(
     Billete100Euros,
     Billete50Euros,
